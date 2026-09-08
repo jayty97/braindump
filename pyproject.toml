@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=69"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -7,8 +7,25 @@ name = "dictate-workbench"
 version = "0.1.0"
 description = "Turn long spoken app-testing notes into clear, actionable prompts."
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["dictation", "transcription", "desktop", "ai", "prompts"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: MacOS",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Sound/Audio :: Capture/Recording",
+]
 requires-python = ">=3.11"
 dependencies = ["PySide6>=6.7,<7", "sounddevice>=0.5,<1", "numpy>=1.26,<3", "httpx>=0.27,<1", "keyring>=25,<26"]
+
+[project.urls]
+Homepage = "https://github.com/jayty97/braindump"
+Repository = "https://github.com/jayty97/braindump"
+Issues = "https://github.com/jayty97/braindump/issues"
+Documentation = "https://github.com/jayty97/braindump#readme"
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<10", "build>=1,<2", "pyinstaller>=6,<7"]

@@ -16,4 +16,4 @@ Locally checked September 8, 2026, on Windows with Python 3.12.4.
 
 Not yet verified: real speech recording quality, paid transcription or writing requests, a real 30–60 minute hardware recording, NVIDIA virtual-device audio quality, and macOS/Linux hardware behavior. Those checks require the user's configured devices / provider accounts and suitable platforms. No keys were supplied and no paid API calls were made during development.
 
-The release license is pending owner selection. Nothing has been pushed to GitHub or published.
+The project is MIT licensed. Cross-platform CI is configured in the [GitHub repository](https://github.com/jayty97/braindump/actions/workflows/tests.yml); consult its actual run results for current Windows, Linux, and macOS test status. CI uses mocked audio and providers and does not replace the manual hardware checks above.

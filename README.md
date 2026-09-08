@@ -1,8 +1,13 @@
-# Dictate Workbench
+# BrainDump
+
+[![Tests](https://github.com/jayty97/braindump/actions/workflows/tests.yml/badge.svg)](https://github.com/jayty97/braindump/actions/workflows/tests.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 **Think out loud. Build what's next.**
 
-A small Python desktop app for recording app-testing walkthroughs and turning them into clear, ready-to-paste prompts. Start recording, test your app, say what you notice, stop, and process. Bring your own API keys. No app subscription, hosted backend, telemetry, or account to create with this project.
+A lightweight desktop dictation app that uses AI to convert stream-of-consciousness rambling into clean, formatted text. Record app-testing walkthroughs and turn them into clear, ready-to-paste prompts: start recording, test your app, say what you notice, stop, and process. Bring your own API keys. No app subscription, hosted backend, telemetry, or account to create with this project.
+
+**First public release: 0.1.0 (alpha).** BrainDump is fully open source under the [MIT license](LICENSE). The desktop window, Python package (`dictate-workbench`), and launchers retain the original **Dictate Workbench** name so existing local installations and saved recordings continue to work.
 
 ![Dictate Workbench interface with synthetic example text](docs/screenshot.png)
 
@@ -23,7 +28,7 @@ A small Python desktop app for recording app-testing walkthroughs and turning th
 
 Requires **Python 3.11 or newer** with the Python launcher (`py`).
 
-1. Download or clone this repository and extract it to a writable folder.
+1. [Download the source ZIP](https://github.com/jayty97/braindump/archive/refs/heads/main.zip), extract it to a writable folder, or run `git clone https://github.com/jayty97/braindump.git`.
 2. Double-click **setup.cmd** once to install the app's dependencies in `.venv`.
 3. Double-click **Start Dictate.cmd**.
 4. Open **Provider settings**. Enter your API key and choose your providers. When both stages use the same endpoint, entering a key fills both tabs.
@@ -37,16 +42,56 @@ Closing the window keeps the app in the system tray. Double-click its tray icon 
 
 Select the NVIDIA Broadcast or RTX Voice virtual microphone in the picker if installed. These inputs are labeled **Noise-filtered**. Otherwise use your normal microphone; Dictate needs no GPU. Configure noise removal in the NVIDIA application first. Broadcast requires an RTX-class GPU; a GTX 1080 may use the older RTX Voice option. See [requirements and fallback behavior](docs/PROVIDERS.md#nvidia-microphone-support).
 
-## macOS / Linux / developer setup
+## macOS and Linux
+
+The Python application uses cross-platform Qt and PortAudio libraries. Use a graphical desktop and Python 3.11+; Python 3.12 is a good starting point. Recent OS versions supported by the installed Qt version are required. The Windows `.cmd` files do not run on macOS/Linux; start the Python module instead.
+
+### macOS
+
+Install Python 3.11+ from [python.org](https://www.python.org/downloads/macos/), then open Terminal:
 
 ```sh
+git clone https://github.com/jayty97/braindump.git
+cd braindump
 python3 -m venv .venv
 source .venv/bin/activate
+python -m pip install --upgrade pip
 python -m pip install -e .
 python -m dictate
 ```
 
-Linux may require system PortAudio (`libportaudio2`), Qt/X11 dependencies, and a desktop credential-store service. macOS requires microphone permission for the launching application. Windows is the primary tested platform; macOS/Linux packaging and microphone behavior need testing on those systems.
+Allow microphone access when prompted. If recording is denied, check **System Settings → Privacy & Security → Microphone** for Terminal or the application that launched Python, then restart it. PortAudio is included by the sounddevice pip installation on macOS. Remembered keys use macOS Keychain. No signed `.app` bundle is supplied in this release.
+
+### Linux (Ubuntu / Debian)
+
+Install Python and the native audio/GUI dependencies, then use the same clone, virtual-environment, install, and launch commands shown above:
+
+```sh
+sudo apt update
+sudo apt install python3 python3-venv git libportaudio2 libegl1 libgl1 libxcb-cursor0 libxkbcommon-x11-0
+```
+
+Other distributions use their corresponding PortAudio and Qt runtime packages. Recording requires access to your desktop audio input. Remembered keys need an unlocked Secret Service or KWallet backend; temporary in-memory keys work without saving credentials. Tray behavior depends on the desktop environment. If no tray is available, minimize the window to keep recording; closing quits after handling any active recording.
+
+After the first installation, launch again with:
+
+```sh
+cd braindump
+source .venv/bin/activate
+python -m dictate
+```
+
+### Platform status
+
+| Platform | Status | Platform-specific notes |
+| --- | --- | --- |
+| Windows | Local tests, UI preview, and microphone configuration checked | Double-click launchers; optional NVIDIA virtual microphones |
+| Linux | Included in automated tests; manual audio/desktop validation still needed | PortAudio and GUI runtime dependencies; tray varies by desktop |
+| macOS | Included in automated tests; manual audio/desktop validation still needed | Microphone permission and Keychain access |
+
+Automated tests use synthetic audio and mocked APIs. A passing CI run verifies code behavior and package building, not a physical microphone or every desktop environment. NVIDIA Broadcast / RTX Voice integration is Windows-only; ordinary recording needs no NVIDIA software on any platform.
+
+References: [Qt supported platforms](https://doc.qt.io/qtforpython-6/overviews/qtdoc-supported-platforms.html) and [sounddevice installation](https://python-sounddevice.readthedocs.io/en/latest/installation.html).
 
 ## Providers and current defaults
 
@@ -111,7 +156,13 @@ Tests use synthetic audio and mocked provider responses, with no credentials, pa
 python -m scripts.preview
 ```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md), [docs/PROVIDERS.md](docs/PROVIDERS.md), and [docs/RELEASING.md](docs/RELEASING.md). Public distribution is pending the project owner's license selection; see [LICENSE-PENDING.md](LICENSE-PENDING.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md), [docs/PROVIDERS.md](docs/PROVIDERS.md), [validation notes](docs/VALIDATION.md), and [docs/RELEASING.md](docs/RELEASING.md).
+
+## License and support
+
+BrainDump's original code is released under the [MIT license](LICENSE). You may use, modify, redistribute, and use it commercially under that license. Dependencies retain their own licenses; see [third-party notices](THIRD_PARTY_NOTICES.md). Cloud API services remain subject to their providers' terms and usage charges.
+
+[Report a bug or request a feature](https://github.com/jayty97/braindump/issues). Include your OS and steps to reproduce, but never include API keys or private dictation. For sensitive security reports, follow [SECURITY.md](SECURITY.md).
 
 ## Official references
 

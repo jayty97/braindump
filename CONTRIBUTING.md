@@ -8,4 +8,4 @@ Keep microphone callbacks free of disk and network work. Keep UI changes on the 
 
 Do not include personal recordings, keys, `.env` files, local settings, or transcripts in contributions. Use synthetic examples for screenshots. Check [docs/RELEASING.md](docs/RELEASING.md) before packaging.
 
-The project owner must select a license before external contributions or public distribution. See [LICENSE-PENDING.md](LICENSE-PENDING.md).
+Contributions are accepted under the project's [MIT license](LICENSE). Please open an issue before proposing substantial product changes. Bug reports should include the OS, Python version, provider/model (if relevant), steps to reproduce, and a redacted error message. Do not attach real API keys or private recordings.
