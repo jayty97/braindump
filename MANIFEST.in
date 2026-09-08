@@ -1,0 +1,9 @@
+include README.md CONTRIBUTING.md LICENSE-PENDING.md
+include setup.cmd launch.pyw
+include .gitignore
+include Start*.cmd
+recursive-include .github *.yml
+recursive-include docs *.md *.png
+recursive-include tests *.py
+recursive-include scripts *.py
+global-exclude *.pyc
